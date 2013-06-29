@@ -1,33 +1,48 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".ChatWindow">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context=".ChatWindow">
 
     <fragment
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:name="com.github.mahmoudhossam.chat.ConversationFragment"
             android:id="@+id/fragment"
             tools:layout="@layout/conversation"
-            android:layout_weight=".70"/>
+            android:layout_above="@+id/button"/>
+
 
     <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/fragment"
+            android:layout_alignParentBottom="true"
             android:id="@+id/editText"
             android:editable="true"
             android:enabled="true"
             android:focusable="true"
             android:gravity="bottom"
             android:hint="@string/msg_placeholder"
-            android:layout_weight="0.30"
-            android:layout_gravity="center"
             android:singleLine="true"
-            android:imeOptions="actionSend"/>
-</LinearLayout>
+            android:imeOptions="actionSend"
+            />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/editText"
+            android:gravity="bottom"
+            android:text="@string/button_send"
+            android:onClick="onSendClicked"
+            android:id="@+id/button"/>
+
+</RelativeLayout>

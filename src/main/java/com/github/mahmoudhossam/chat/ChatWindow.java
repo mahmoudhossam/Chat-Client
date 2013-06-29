@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,11 +13,13 @@ import java.util.Date;
 
 public class ChatWindow extends FragmentActivity {
 
+    private EditText messageText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_window);
-        EditText messageText = (EditText) findViewById(R.id.editText);
+        messageText = (EditText) findViewById(R.id.editText);
         messageText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             boolean handled = false;
             @Override
@@ -31,6 +34,10 @@ public class ChatWindow extends FragmentActivity {
             }
         });
 
+    }
+
+    public void onSendClicked(View view){
+        messageText.onEditorAction(EditorInfo.IME_ACTION_SEND);
     }
 
     private void sendMessage(String message) {
