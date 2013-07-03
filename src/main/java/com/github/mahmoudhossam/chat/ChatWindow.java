@@ -1,5 +1,6 @@
 package com.github.mahmoudhossam.chat;
 
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
@@ -8,17 +9,23 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Date;
 
-public class ChatWindow extends FragmentActivity {
+public class ChatWindow extends ListActivity {
 
     private EditText messageText;
+    private MessageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_window);
+        ArrayList<Message> messages = new ArrayList<Message>();
+        adapter = new MessageAdapter(this, R.layout.message, messages);
+        setListAdapter(adapter);
         messageText = (EditText) findViewById(R.id.editText);
         messageText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             boolean handled = false;
@@ -28,6 +35,9 @@ public class ChatWindow extends FragmentActivity {
                     String text = textView.getText().toString();
                     if (!text.isEmpty()){
                         sendMessage(text);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please enter a message.",
+                                Toast.LENGTH_SHORT);
                     }
                 }
                 return handled;
@@ -42,9 +52,7 @@ public class ChatWindow extends FragmentActivity {
 
     private void sendMessage(String message) {
         Message msg = new Message(message, new Date());
-        ConversationFragment fragment = (ConversationFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.fragment);
-        fragment.addMessage(msg);
+        adapter.addItem(msg);
     }
 
     @Override
