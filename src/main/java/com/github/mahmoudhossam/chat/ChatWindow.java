@@ -2,7 +2,6 @@ package com.github.mahmoudhossam.chat;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -37,7 +36,7 @@ public class ChatWindow extends ListActivity {
                         sendMessage(text);
                     } else {
                         Toast.makeText(getApplicationContext(), "Please enter a message.",
-                                Toast.LENGTH_SHORT);
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
                 return handled;
